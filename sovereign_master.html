@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>🏛️ لوحة التحكم السيادية</title>
+    <style>
+        body { font-family: 'Segoe UI'; background: #0a0a2a; color: white; padding: 20px; }
+        .container { max-width: 1200px; margin: auto; }
+        .header { text-align: center; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 10px; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0; }
+        .card { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; }
+        .value { font-size: 24px; color: #00ff9d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ النظام السيادي الموحد</h1>
+            <h3>المهندس: علي عيسى | {last_update}</h3>
+        </div>
+        
+        <div class="metrics">
+            <div class="card">
+                <h3>🖥️ المعالج (CPU)</h3>
+                <div class="value">{cpu_usage}%</div>
+                <div>التردد: {cpu_freq} MHz</div>
+            </div>
+            
+            <div class="card">
+                <h3>🎮 كارت الشاشة (GPU)</h3>
+                <div class="value">{gpu_temp}°C</div>
+                <div>الاستخدام: {gpu_util}% | المروحة: {gpu_fan}%</div>
+            </div>
+            
+            <div class="card">
+                <h3>💾 الذاكرة (RAM)</h3>
+                <div class="value">{mem_percent}%</div>
+                <div>المستخدم: {mem_used} GB</div>
+            </div>
+            
+            <div class="card">
+                <h3>💿 القرص (E:)</h3>
+                <div class="value">{disk_percent}%</div>
+                <div>المستخدم: {disk_used} GB</div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>📊 معلومات النظام</h3>
+            <div>وقت التشغيل: {uptime}</div>
+            <div>درجة الأداء: {performance_score}/100</div>
+            <div>حالة النظام: {system_health}</div>
+            <div>آخر تحديث: {last_update}</div>
+        </div>
+    </div>
+</body>
+</html>

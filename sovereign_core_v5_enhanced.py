@@ -5,7 +5,7 @@ from logging.handlers import RotatingFileHandler
 
 # ===================== تهيئة نظام التسجيل (Logging) =====================
 def setup_logging():
-    log_dir = r'E:\Sovereign_System\Logs'
+    log_dir = r'E:\Sovereign_Final\Logs'
     os.makedirs(log_dir, exist_ok=True)
     
     logger = logging.getLogger('SovereignCore')
@@ -39,9 +39,9 @@ logger = setup_logging()
 # ===================== فئة النظام الأساسي =====================
 class SovereignSystem:
     def __init__(self):
-        self.master_path = r'E:\Sovereign_System\Dashboard\sovereign_master.html'
-        self.live_path = r'E:\Sovereign_System\Dashboard\sovereign_dashboard_LIVE.html'
-        self.backup_path = r'D:\Sovereign_Golden_Code\Dashboard\sovereign_dashboard_upgraded.html'
+        self.master_path = r'E:\Sovereign_Final\Dashboard\sovereign_master.html'
+        self.live_path = r'E:\Sovereign_Final\Dashboard\sovereign_dashboard_LIVE.html'
+        self.backup_path = r'E:\Sovereign_Final\Dashboard\backups\sovereign_dashboard_upgraded.html'
         self.stats_history = {
             'cpu': [], 'gpu_temp': [], 'gpu_util': [], 'memory': [], 'disk': []
         }
@@ -54,7 +54,7 @@ class SovereignSystem:
         
     def setup_backup_system(self):
         """إنشاء نظام نسخ احتياطي تلقائي"""
-        backup_dir = r'E:\Sovereign_System\Backups'
+        backup_dir = r'E:\Sovereign_Final\Backups'
         os.makedirs(backup_dir, exist_ok=True)
         
         # نسخ احتياطي للسيستم
@@ -308,7 +308,7 @@ class SovereignSystem:
                     'total_anomalies': self.anomaly_count
                 }
                 
-                anomaly_file = r'E:\Sovereign_System\Logs\anomalies.json'
+                anomaly_file = r'E:\Sovereign_Final\Logs\anomalies.json'
                 os.makedirs(os.path.dirname(anomaly_file), exist_ok=True)
                 
                 anomalies = []
@@ -397,7 +397,7 @@ class SovereignSystem:
     def _log_system_stats(self, data):
         """تسجيل إحصاءات النظام"""
         try:
-            stats_file = r'E:\Sovereign_System\Logs\system_stats.json'
+            stats_file = r'E:\Sovereign_Final\Logs\system_stats.json'
             os.makedirs(os.path.dirname(stats_file), exist_ok=True)
             
             stats_entry = {
@@ -436,7 +436,7 @@ class SovereignSystem:
             'total_anomalies': self.anomaly_count
         }
         
-        state_file = r'E:\Sovereign_System\Logs\system_state.json'
+        state_file = r'E:\Sovereign_Final\Logs\system_state.json'
         with open(state_file, 'w', encoding='utf-8') as f:
             json.dump(final_state, f, indent=2, ensure_ascii=False)
         
