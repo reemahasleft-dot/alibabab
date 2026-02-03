@@ -1,0 +1,13 @@
+# --- EMERGENCY SOVEREIGN OVERRIDE (USE WITH CAUTION) ---
+Write-Host "--- [INITIATING MASTER OVERRIDE] ---" -ForegroundColor Red
+
+# 1. إيقاف الحارس (Sentinel Deactivation)
+Unregister-ScheduledTask -TaskName "Sovereign_Sentinel_Final" -Confirm:$false
+Write-Host "[OFF] Sentinel Guard Disarmed." -ForegroundColor Yellow
+
+# 2. فك قفل الملفات (Files Unlock)
+$KBPath = "D:\Neural_Knowledge_Base.json"
+Set-ItemProperty $KBPath -Name IsReadOnly -Value $false
+Write-Host "[OFF] Knowledge Base Unlocked for Manual Edit." -ForegroundColor Yellow
+
+Write-Host "--- [SYSTEM IS NOW IN OPEN MAINTENANCE MODE] ---" -ForegroundColor Red

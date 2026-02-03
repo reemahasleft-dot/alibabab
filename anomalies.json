@@ -1,0 +1,65 @@
+[
+  {
+    "timestamp": "2026-02-04T00:39:36.207859",
+    "cpu": 10.7,
+    "gpu_temp": 34.0,
+    "gpu_util": 7.0,
+    "total_anomalies": 1
+  },
+  {
+    "timestamp": "2026-02-04T00:39:39.358969",
+    "cpu": 6.2,
+    "gpu_temp": 34.0,
+    "gpu_util": 6.0,
+    "total_anomalies": 2
+  },
+  {
+    "timestamp": "2026-02-04T00:41:01.251666",
+    "cpu": 33.3,
+    "gpu_temp": 34.0,
+    "gpu_util": 0.0,
+    "total_anomalies": 3
+  },
+  {
+    "timestamp": "2026-02-04T00:41:04.407704",
+    "cpu": 7.1,
+    "gpu_temp": 34.0,
+    "gpu_util": 9.0,
+    "total_anomalies": 4
+  },
+  {
+    "timestamp": "2026-02-04T00:41:07.567121",
+    "cpu": 10.3,
+    "gpu_temp": 34.0,
+    "gpu_util": 10.0,
+    "total_anomalies": 5
+  },
+  {
+    "timestamp": "2026-02-04T00:43:11.632596",
+    "cpu": 10.4,
+    "gpu_temp": 34.0,
+    "gpu_util": 4.0,
+    "total_anomalies": 1
+  },
+  {
+    "timestamp": "2026-02-04T00:44:14.674130",
+    "cpu": 8.9,
+    "gpu_temp": 34.0,
+    "gpu_util": 3.0,
+    "total_anomalies": 1
+  },
+  {
+    "timestamp": "2026-02-04T00:44:17.834296",
+    "cpu": 7.3,
+    "gpu_temp": 34.0,
+    "gpu_util": 6.0,
+    "total_anomalies": 2
+  },
+  {
+    "timestamp": "2026-02-04T00:47:16.259194",
+    "cpu": 1.0,
+    "gpu_temp": 34.0,
+    "gpu_util": 0.0,
+    "total_anomalies": 1
+  }
+]

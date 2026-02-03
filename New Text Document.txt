@@ -1,0 +1,189 @@
+import customtkinter as ctk
+import threading
+import os
+import sys
+import time
+import psutil
+import pyttsx3
+import ctypes
+import subprocess
+from datetime import datetime
+from PIL import Image
+
+# =================================================================
+# 1. بروتوكول الحماية والقفل الملكي (KERNEL GUARD)
+# =================================================================
+class SovereignGuard:
+    def __init__(self):
+        self.mutex = ctypes.windll.kernel32.CreateMutexW(None, False, "Global\\Sovereign_Final_Golden_Logo_Vault")
+        if ctypes.windll.kernel32.GetLastError() == 183:
+            sys.exit(0)
+        self._purge_ghost_tasks()
+
+    def _purge_ghost_tasks(self):
+        try:
+            tasks = ["SovereignAI_Autostart", "SovereignSystem_Boot", "Sovereign_Legacy", "Sovereign_Routine", "Sovereign_Hybrid"]
+            for task in tasks:
+                subprocess.run(f'schtasks /delete /tn "{task}" /f', shell=True, capture_output=True)
+        except: pass
+
+guard = SovereignGuard()
+
+# =================================================================
+# 2. الهوية والأرشفة السيادية (D: DRIVE)
+# =================================================================
+BASE_DIR = r"D:\Sovereign_AI_System"
+REPORTS_DIR = os.path.join(BASE_DIR, "Reports")
+LOGO_PATH = os.path.join(os.path.dirname(__file__), "shield.ico") # مسار شعارك الخاص
+os.makedirs(REPORTS_DIR, exist_ok=True)
+
+if not ctypes.windll.shell32.IsUserAnAdmin():
+    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, sys.argv[0], None, 1)
+    sys.exit()
+
+# =================================================================
+# 3. واجهة السيطرة الذهبية المعتمدة (THE GOLDEN UI)
+# =================================================================
+class SovereignGoldenApp(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        
+        self.title("🔱 SOVEREIGN AI | THE GOLDEN CODE 🔱")
+        self.geometry("1200x850")
+        ctk.set_appearance_mode("dark")
+        self.configure(fg_color="#000000")
+        
+        # إعداد الأيقونة للنافذة
+        try: self.iconbitmap(LOGO_PATH)
+        except: pass
+        
+        self.current_mode = "IDLE"
+        self.silent_optimized = ["waterfox.exe", "browser.exe", "vlc.exe"]
+        
+        try:
+            self.voice = pyttsx3.init()
+            self.voice.setProperty('rate', 165)
+        except: self.voice = None
+
+        self._build_ui()
+        self._ignite_system()
+
+    def _build_ui(self):
+        # الهيدر الذهبي الفخم
+        self.header = ctk.CTkFrame(self, height=200, fg_color="#080808", border_width=2, border_color="#FFD700")
+        self.header.pack(fill="x", padx=30, pady=30)
+        
+        # دمج الشعار بجانب العنوان
+        self.title_frame = ctk.CTkFrame(self.header, fg_color="transparent")
+        self.title_frame.pack(pady=(40, 5))
+        
+        try:
+            logo_img = ctk.CTkImage(light_image=Image.open(LOGO_PATH), dark_image=Image.open(LOGO_PATH), size=(50, 50))
+            self.logo_lbl = ctk.CTkLabel(self.title_frame, image=logo_img, text="")
+            self.logo_lbl.pack(side="left", padx=15)
+        except: pass
+
+        self.title_lbl = ctk.CTkLabel(self.title_frame, text="THE GOLDEN CODE", font=("Orbitron", 45, "bold"), text_color="#FFD700")
+        self.title_lbl.pack(side="left")
+        
+        self.status_lbl = ctk.CTkLabel(self.header, text="HARDWARE: 7800X3D | GPU: RTX 5080 | STATUS: SECURED", font=("Consolas", 18), text_color="#777777")
+        self.status_lbl.pack(pady=5)
+
+        # الكونسول الأخضر التفاعلي
+        self.console = ctk.CTkTextbox(self, font=("Consolas", 20), fg_color="#010101", text_color="#00FF00", border_width=1, border_color="#222222")
+        self.console.pack(fill="both", expand=True, padx=30, pady=10)
+
+        self.btn_archive = ctk.CTkButton(self, text="OPEN D: ARCHIVE", fg_color="#1A1A1A", hover_color="#333333", font=("Consolas", 18), height=55, command=lambda: os.startfile(REPORTS_DIR))
+        self.btn_archive.pack(pady=30)
+
+    def write_log(self, tag, msg):
+        now = datetime.now().strftime("%H:%M:%S")
+        formatted_msg = f"[{now}] [{tag.upper()}] >>> {msg}\n"
+        self.console.insert("end", formatted_msg)
+        self.console.see("end")
+        
+        log_file = os.path.join(REPORTS_DIR, f"Golden_Master_{datetime.now().strftime('%Y-%m-%d')}.log")
+        with open(log_file, "a", encoding="utf-8") as f:
+            f.write(formatted_msg)
+
+    def _ignite_system(self):
+        self.write_log("SYSTEM", "Golden Master State Ignited with Custom Emblem.")
+        self._apply_baseline_fixes()
+        if self.voice:
+            threading.Thread(target=lambda: (self.voice.say("The Golden Code is active with your sovereign emblem. Ready, CEO."), self.voice.runAndWait()), daemon=True).start()
+        threading.Thread(target=self._master_engine, daemon=True).start()
+
+    def _apply_baseline_fixes(self):
+        # حقن تحسينات البنق، الصوت، الـ MPO، ودعم الجي باد (GamePad Priority)
+        payload = [
+            'reg add "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces" /v "TcpAckFrequency" /t REG_DWORD /d 1 /f',
+            'reg add "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm" /v "OverlayTestMode" /t REG_DWORD /d 5 /f',
+            'powershell.exe -Command "Restart-Service Audiosrv -Force"'
+        ]
+        for cmd in payload: subprocess.run(cmd, shell=True, capture_output=True)
+        self.write_log("FIX", "Registry DNA Purified (Ping/MPO/Audio/Input).")
+
+    def _master_engine(self):
+        while True:
+            try:
+                ctypes.windll.ntdll.NtSetTimerResolution(5000, 1, ctypes.byref(ctypes.c_ulong()))
+                
+                game_active = False
+                waterfox_active = False
+                
+                for proc in psutil.process_iter(['name', 'cpu_percent']):
+                    try:
+                        p_name = proc.info['name'].lower()
+                        p_cpu = proc.info['cpu_percent']
+
+                        if p_cpu > 12 and 'python' not in p_name:
+                            p = psutil.Process(proc.pid)
+                            # توجيه المهمة لأنوية الـ V-Cache (2-7) لأداء الألعاب
+                            p.cpu_affinity(list(range(2, 8)))
+
+                            if p_name in self.silent_optimized:
+                                waterfox_active = True
+                                p.nice(psutil.NORMAL_PRIORITY_CLASS)
+                            else:
+                                p.nice(psutil.HIGH_PRIORITY_CLASS)
+                                if not game_active:
+                                    self.write_log("WARFARE", f"Target identified: {p_name}. V-Cache Lock Engaged.")
+                                game_active = True
+                        
+                        # دعم الجي باد: رفع أولوية تعريفات التحكم تلقائياً
+                        if "gamepad" in p_name or "joy" in p_name or "xinput" in p_name:
+                            psutil.Process(proc.pid).nice(psutil.ABOVE_NORMAL_PRIORITY_CLASS)
+
+                    except: continue
+
+                self._handle_power_logic(game_active, waterfox_active)
+                time.sleep(5)
+            except: pass
+
+    def _handle_power_logic(self, gaming, waterfox):
+        if gaming:
+            if self.current_mode != "POWER":
+                subprocess.run('powercfg /setactive SCHEME_MIN', shell=True, capture_output=True)
+                self.write_log("POWER", "Performance Mode Engaged. RTX 5080 unleashed.")
+                self.current_mode = "POWER"
+        elif waterfox:
+            if self.current_mode != "CINEMA":
+                subprocess.run('powercfg /setactive SCHEME_BALANCED', shell=True, capture_output=True)
+                self.write_log("CINEMA", "Waterfox active. Cinema Mode: Fans Stabilized.")
+                self.current_mode = "CINEMA"
+        else:
+            if self.current_mode != "IDLE":
+                # أمان الحرارة (CoolDown Protocol)
+                ctypes.windll.ntdll.NtSetTimerResolution(15000, 1, ctypes.byref(ctypes.c_ulong()))
+                subprocess.run('powercfg /setactive SCHEME_BALANCED', shell=True, capture_output=True)
+                self.write_log("THERMAL", "All loads ended. Thermal Guard active. System cooling.")
+                self.current_mode = "IDLE"
+
+    def on_closing(self):
+        self.destroy()
+        sys.exit()
+
+if __name__ == "__main__":
+    ctypes.windll.kernel32.SetThreadExecutionState(0x80000002)
+    app = SovereignGoldenApp()
+    app.mainloop()
